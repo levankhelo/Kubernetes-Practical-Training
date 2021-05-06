@@ -48,3 +48,9 @@ kubectl logs POD-NAME
 ```
 Displays logs of selected `pod`
 
+<br><br>
+```bash
+kubectl describe pod POD-NAME
+```
+get additional description of pod
+> you can use it with other things like `service`, `replicaset` and so on
