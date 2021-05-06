@@ -41,3 +41,10 @@ kubectl edit deployment POD-NAME
 Editing Deployment Configuration for `POD-NAME` automatically changes pod (*downloads, deploys*) based on new configuration
 > Note: edit opens in `vim`, so be ready! use `ESC` following with `i` to enter **INSERT** mode and change something. Save file using `ESC` following `:w!` and to exit vim use `ESC` following `:q!`
 
+
+<br><br>
+```bash
+kubectl logs POD-NAME
+```
+Displays logs of selected `pod`
+
