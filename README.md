@@ -54,3 +54,11 @@ kubectl describe pod POD-NAME
 ```
 get additional description of pod
 > you can use it with other things like `service`, `replicaset` and so on
+
+
+<br><br>
+```bash
+kubectl exec -it POD-NAME-HASH-HASH -- /bin/bash 
+```
+Open interactive mode to container 
+> same as `docker exec` so you can change arguments passed and executed commands as in `docker exec`
