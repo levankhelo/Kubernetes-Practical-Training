@@ -1,10 +1,6 @@
-<p style="font-size:24px"> Please see <a href="https://github.com/levankhelo/Kubernetes-Guide/blob/main/mongo/actions.sh"> <span style="font-size:32px"> actions.sh</span>  </a> for automated execution
-</h1>
+## Please see <a href="https://github.com/levankhelo/Kubernetes-Guide/blob/main/mongo/actions.sh"> <span style="font-size:32px"> actions.sh</span>  </a> for easy execution
 
-<div style="width: 100%; border: 3px solid black; margin-bottom: 25px;">
-</div>
-
-# general actions
+## general actions
  1. starting secrets
     - mongodb admin's `hash64`ed `username` and `password` is stored
  2. starting mongodb `deployment`/`pod` and `service`
