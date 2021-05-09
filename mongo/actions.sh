@@ -21,7 +21,7 @@ wait_for_deployment() {
 
         sleep 1;
         i=$((i+1));
-        echo -en "\rWaiting for $1 pod to be Run. (Time elapsed: $i seconds)";
+        echo -en "\rWaiting for $1 pod to be up and Running. (Time elapsed: $i seconds)";
     done
 }
 
