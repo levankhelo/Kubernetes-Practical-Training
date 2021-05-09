@@ -12,6 +12,77 @@
 ## Course on [YouTube](https://www.youtube.com/watch?v=X48VuDVv0do)
 
 
+
+
+# `Pod`
+`Pod` is minimal element of kubernetes.   
+`Pod` is just a Container.  
+
+> Containers can be Docker Container or any other container  
+
+`Pods` are placed in `Nodes`
+
+
+## list `pods`
+```bash
+kubectl get pods
+```
+
+## Create `pod`
+```bash
+kubectl create deployment NAME --image=IMAGE
+```
+`NAME` can be anything
+> Example: `kubectl ... deployment nginx-depl ...`
+
+`IMAGE` can be Image from docker hub
+> Example: `--image=nginx`
+
+
+
+
+## Delete `pod`
+```bash
+kubectl delete deployment NAME-ReplicaIdHash-PodIdHash
+```
+
+
+## Description of `pod`
+```bash
+kubectl description pod NAME-ReplicaIdHash-PodIdHash
+```
+
+# `replicaset`
+replicaset is created when `deployment`/`pod` is created. replicaset is more global version of pod. 
+
+## Delete `replicaset`
+```bash
+kubectl delete replicaset NAME-ReplicaIdHash
+```
+
+# Delete
+
+
+## pod and replicaset
+
+```bash
+kubectl delete deployment NAME
+```
+> this automatically removes pod and replicaset under selected deployment's name
+> This is **Correct way** to delete deployment
+
+
+### replicaset
+```bash
+kubectl delete deployment NAME-ReplicaIdHash
+```
+
+### pod
+```bash
+kubectl delete deployment NAME-ReplicaIdHash-PodIdHash
+```
+
+
 ## General
 
 `pod`  
