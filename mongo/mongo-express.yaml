@@ -3,22 +3,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb-deployment
+  name: mongo-express
   labels:
-    app: mongodb
+    app: mongo-express
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb
+      app: mongo-express
   template:
     metadata:
       labels:
-        app: mongodb
+        app: mongo-express
     spec:
       containers:
-        - name: mongodb
-          image: mongo
+        - name: mongo-express
+          image: mongo-express
           resources:
             limits:
               cpu: 500m
@@ -27,28 +27,34 @@ spec:
               cpu: 5m
               memory: 256m
           ports:
-          - containerPort: 27017
+          - containerPort: 8081
           env:
-          - name: MONGO_INITDB_ROOT_USERNAME
+          - name: ME_CONFIG_MONGODB_ADMINUSERNAME
             valueFrom: 
               secretKeyRef:
                 name: mongodb-secret
                 key: mongo_root_username
-          - name: MONGO_INITDB_ROOT_PASSWORD
+          - name: ME_CONFIG_MONGODB_ADMINPASSWORD
             valueFrom:
               secretKeyRef:
                 name: mongodb-secret
                 key: mongo_root_password
+          - name: ME_CONFIG_MONGODB_SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: mongodb-configmap
+                key: database_url
 ---
-# service
 apiVersion: v1
 kind: Service
-metadata: 
-  name: mongodb-service
+metadata:
+  name: mongo-express-service
 spec:
   selector:
-    app: mongodb
+    app: mongo-express
+  type: LoadBalancer
   ports:
-    - protocol: TCP
-      port: 27017
-      targetPort: 27017
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30303
