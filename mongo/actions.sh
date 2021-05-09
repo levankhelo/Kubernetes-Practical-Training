@@ -26,7 +26,7 @@ wait_for_deployment() {
 }
 
 # initialize secrets for mongodb user and pass
-kubectl apply -f ./mongo-secrets.yaml;
+kubectl apply -f ./mongo-secret.yaml;
 
 # create deployment of mongodb and service
 kubectl apply -f ./mongo.yaml;
