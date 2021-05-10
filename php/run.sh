@@ -12,7 +12,7 @@ wait_for_deployment() {
     while : ; do
 
         if [[ $(kubectl get pods | grep $1 | awk {'print $3'}) == "Running" ]]; then 
-            echo "$1 pod is Running";
+            echo "\n$1 pod is Running";
             break;
         elif [[ $((i>wait_time)) == 1 ]]; then
             echo "Failed to run $1.\n\tWaited for $wait_time seconds";
@@ -51,4 +51,5 @@ kubectl apply -f phpmyadmin.yaml
 # checking if phpmyadmin is ready
 wait_for_deployment phpmyadmin
 
+# make phpmyadmin accessible externally 
 minikube service phpmyadmin-service
