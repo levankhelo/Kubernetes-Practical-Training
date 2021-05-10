@@ -1,4 +1,12 @@
 ## Please see [run.sh](https://github.com/levankhelo/Kubernetes-Guide/blob/main/mongo/run.sh) for easy execution
+
+### If you are using minikube and this is only thing installed, you can run following commands to clean up your minikube insance
+```bash
+kubectl delete --all deployments;
+kubectl delete --all services;
+kubectl delete --all secrets;
+kubectl delete --all configmaps;
+```
 ## general actions
  1. starting secrets
     - mongodb admin's `hash64`ed `username` and `password` is stored
