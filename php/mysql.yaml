@@ -1,0 +1,36 @@
+
+# deployment / pods
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 256m
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql_secret
+              key: mysql_root_password
