@@ -1,5 +1,4 @@
-## Please see <a href="https://github.com/levankhelo/Kubernetes-Guide/blob/main/mongo/actions.sh"> <span style="font-size:32px"> actions.sh</span>  </a> for easy execution
-
+## Please see [run.sh](https://github.com/levankhelo/Kubernetes-Guide/blob/main/mongo/run.sh) for easy execution
 ## general actions
  1. starting secrets
     - mongodb admin's `hash64`ed `username` and `password` is stored
