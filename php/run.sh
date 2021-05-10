@@ -39,14 +39,16 @@ kubectl apply -f mysql-secret.yaml
 # create deployment of mysql and service
 kubectl apply -f mysql.yaml
 
+# checking if mysql is ready
 wait_for_deployment mysql
 
-kubectl apply -f configmap.yaml
-
+# apply configuration map
 kubectl apply -f phpmyadmin-configmap.yaml
 
+# create deployment of phpmyadmin and service
 kubectl apply -f phpmyadmin.yaml
 
+# checking if phpmyadmin is ready
 wait_for_deployment phpmyadmin
 
 minikube service phpmyadmin-service

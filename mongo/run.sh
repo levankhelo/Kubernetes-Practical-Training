@@ -42,10 +42,14 @@ kubectl apply -f ./mongo.yaml;
 # checking if mongodb is ready
 wait_for_deployment mongodb
 
+# apply configuration map
 kubectl apply -f ./mongo-configmap.yaml;
 
+# create deployment of mongo-express and service
 kubectl apply -f ./mongo-express.yaml;
 
+# checking if mongo-express is ready
 wait_for_deployment mongo-express
 
+# make mongo-express accessible externally 
 minikube service mongo-express-service
