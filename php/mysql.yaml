@@ -34,3 +34,16 @@ spec:
             secretKeyRef:
               name: mysql_secret
               key: mysql_root_password
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
