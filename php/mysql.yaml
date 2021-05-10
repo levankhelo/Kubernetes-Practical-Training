@@ -22,10 +22,10 @@ spec:
         resources:
           limits:
             cpu: 500m
-            memory: 256Mi
+            memory: 1Gi
           requests:
-            cpu: 50m
-            memory: 256m
+            cpu: 500m
+            memory: 1Gi
         ports:
         - containerPort: 3306
         env:
@@ -33,7 +33,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mysql-secret
-              key: mysql_root_password
+              key: root_password
 ---
 # service
 apiVersion: v1
@@ -47,3 +47,4 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
+    

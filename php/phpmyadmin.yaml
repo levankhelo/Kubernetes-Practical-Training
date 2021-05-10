@@ -20,12 +20,12 @@ spec:
         resources:
           limits:
             cpu: 500m
-            memory: 256Mi
+            memory: 512m
           requests:
             cpu: 5m
-            memory: 256m
+            memory: 512m
         ports:
-        - containerPort: 8080
+        - containerPort: 3306 # 8080
         env:
           # database service name, of mysql, for phpmyadmin
           - name: PMA_HOSTS 
@@ -38,19 +38,16 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
-                key: mysql_root_password
+                key: root_password
           # mysql username - optional
           - name: MYSQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: mysql_root_username
+            value: root
           # mysql users password - optional
           - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
-                key: mysql_root_password
+                key: root_password
 ---
 apiVersion: v1
 kind: Service
@@ -61,6 +58,7 @@ spec:
   selector:
     app: phpmyadmin
   ports:
-  - port: 8080
-    targetPort: 8080
+  - protocol: TCP
+    port: 3306 # 8081
+    targetPort: 3306 # 8081
     nodePort: 30303
