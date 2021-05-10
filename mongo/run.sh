@@ -25,6 +25,14 @@ wait_for_deployment() {
     done
 }
 
+if [[ $1 == "--delete" ]] || [[ $1 == "-d" ]]; then
+    kubectl delete --all deployments;
+    kubectl delete --all services;
+    kubectl delete --all secrets;
+    kubectl delete --all configmaps;
+    exit;
+fi
+
 # initialize secrets for mongodb user and pass
 kubectl apply -f ./mongo-secret.yaml;
 
