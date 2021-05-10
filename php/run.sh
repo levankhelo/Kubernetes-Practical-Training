@@ -40,3 +40,13 @@ kubectl apply -f mysql-secret.yaml
 kubectl apply -f mysql.yaml
 
 wait_for_deployment mysql
+
+kubectl apply -f configmap.yaml
+
+kubectl apply -f phpmyadmin-configmap.yaml
+
+kubectl apply -f phpmyadmin.yaml
+
+wait_for_deployment phpmyadmin
+
+minikube service phpmyadmin-service
