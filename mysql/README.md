@@ -12,4 +12,4 @@ kubectl delete --all configmaps;
     - mongodb admin's `base64`ed `username` and `password` is stored
     - password is `password`
  2. starting **mysql** `deployment`/`pod` and `service`
-    - in [mongo.yaml](https://github.com/levankhelo/Kubernetes-Guide/blob/main/mysql/mysql.yaml), mongodb's both, deployment and service is described
+    - in [mysql.yaml](https://github.com/levankhelo/Kubernetes-Guide/blob/main/mysql/mysql.yaml), mysql's both, deployment and service is described
