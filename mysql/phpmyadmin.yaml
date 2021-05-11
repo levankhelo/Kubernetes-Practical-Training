@@ -20,10 +20,10 @@ spec:
         resources:
           limits:
             cpu: 500m
-            memory: 512m
+            memory: 512Mi
           requests:
             cpu: 5m
-            memory: 512m
+            memory: 512Mi
         ports:
         - containerPort: 3306 # 8080
         env:
@@ -61,4 +61,4 @@ spec:
   - protocol: TCP
     port: 3306 # 8081
     targetPort: 3306 # 8081
-    nodePort: 30303
+    nodePort: 30306
