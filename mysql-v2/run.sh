@@ -1,0 +1,55 @@
+#!/bin/bash
+
+
+# Wait for kubectl deployment to be Running
+#   Arguments:
+#       $1 - Name of deployment
+#   Example:
+#       wait_for_deployment mongodb # this will wait for mongodb service to be Running
+wait_for_deployment() {
+    i=0
+    wait_time=180
+    while : ; do
+
+        if [[ $(kubectl get pods | grep $1 | awk {'print $3'}) == "Running" ]]; then 
+            echo "\n$1 pod is Running";
+            break;
+        elif [[ $((i>wait_time)) == 1 ]]; then
+            echo "Failed to run $1.\n\tWaited for $wait_time seconds";
+            exit;
+        fi
+
+        sleep 1;
+        i=$((i+1));
+        echo -en "\rWaiting for $1 pod to be up and Running. (Time elapsed: $i seconds)";
+    done
+}
+
+if [[ $1 == "--delete" ]] || [[ $1 == "-d" ]]; then
+    kubectl delete --all deployments;
+    kubectl delete --all services;
+    kubectl delete --all secrets;
+    kubectl delete --all configmaps;
+    exit;
+fi
+
+# initialize secrets for mysql password for root user
+kubectl apply -f mysql-secret.yaml
+
+# create deployment of mysql and service
+kubectl apply -f mysql.yaml
+
+# checking if mysql is ready
+wait_for_deployment mysql
+
+# apply configuration map
+kubectl apply -f phpmyadmin-configmap.yaml
+
+# create deployment of phpmyadmin and service
+kubectl apply -f phpmyadmin.yaml
+
+# checking if phpmyadmin is ready
+wait_for_deployment phpmyadmin
+
+# make phpmyadmin accessible externally 
+minikube service phpmyadmin-service
