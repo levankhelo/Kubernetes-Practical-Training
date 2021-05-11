@@ -25,7 +25,7 @@ spec:
             cpu: 5m
             memory: 512Mi
         ports:
-        - containerPort: 3306 # 8080
+        - containerPort: 80
         env:
           # database service name, of mysql, for phpmyadmin
           - name: PMA_HOSTS 
@@ -54,11 +54,12 @@ kind: Service
 metadata:
   name: phpmyadmin-service
 spec:
-  type: NodePort
   selector:
     app: phpmyadmin
+  type: NodePort
+  # type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 3306 # 8081
-    targetPort: 3306 # 8081
+    port: 80
+    targetPort: 80
     nodePort: 30306
