@@ -9,7 +9,7 @@ kubectl delete --all configmaps;
 ```
 ## general actions
  1. starting secrets
-    - mongodb admin's `hash`ed (`sha-1`) `username` and `password` is stored
-    - root_password is `root` and so is default username and password
+    - mongodb admin's, `base64` hashed, `username` and `password` is stored
+    - root_password is what password stands for and so is default username and password
  2. starting **mysql** `deployment`/`pod` and `service`
     - in [mysql.yaml](https://github.com/levankhelo/Kubernetes-Guide/blob/main/mysql/mysql.yaml), mysql's both, deployment and service is described

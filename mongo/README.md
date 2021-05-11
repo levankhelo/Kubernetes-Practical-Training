@@ -9,8 +9,8 @@ kubectl delete --all configmaps;
 ```
 ## general actions
  1. starting secrets
-    - mongodb admin's `base64`ed `username` and `password` is stored
-    - username and password, are both `root`
+    - mongodb admin's, `base64` hashed, `username` and `password` is stored
+    - username and password, are both same as what they mean
  2. starting mongodb `deployment`/`pod` and `service`
     - in [mongo.yaml](https://github.com/levankhelo/Kubernetes-Guide/blob/main/mongo/mongo.yaml), mongodb's both, deployment and service is described
  3. starting configmap to connect mongodb and express
