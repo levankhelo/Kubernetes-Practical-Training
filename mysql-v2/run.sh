@@ -51,5 +51,6 @@ kubectl apply -f phpmyadmin.yaml
 # checking if phpmyadmin is ready
 wait_for_deployment phpmyadmin
 
+# kubectl apply -f ingress.yaml
 # make phpmyadmin accessible externally 
-minikube service phpmyadmin-service
+# minikube service phpmyadmin-service
