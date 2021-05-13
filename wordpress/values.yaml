@@ -1,0 +1,9 @@
+# wordpressUsername: dXNlcm5hbWU=
+# wordpressPassword: cGFzc3dvcmQ=
+
+# mariadb:
+#     auth:
+#         username: dXNlcm5hbWU=
+#         password: cGFzc3dvcmQ=
+# mariadb.auth.username: dXNlcm5hbWU=
+# mariadb.auth.userpassword: cGFzc3dvcmQ=

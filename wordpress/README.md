@@ -9,3 +9,6 @@ brew install hemp
 ```
 
 ## Install wordpress hemp package
+```bash
+helm install wordpress bitnami/wordpress --values=values.yaml
+```

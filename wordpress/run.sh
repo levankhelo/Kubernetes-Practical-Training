@@ -21,10 +21,6 @@ wait_for_deployment() {
     done
 }
 
-helm_install() {
-	# helm list | grep -v "APP VERSION" | awk {'print $1'}
-}
-
 
 if ! command -v helm; then
 	
@@ -45,11 +41,17 @@ if ! command -v helm; then
 
 fi
 
-helm install wordpress bitnami/wordpress
+helm install wordpress bitnami/wordpress --values=values.yaml
 
 wait_for_deployment wordpress-mariadb
-wait_for_deployment $(kubectl get pods | grep wordpress | HEAD -n 1 | awk {'print $1'} )
+wait_for_deployment $(kubectl get pods | grep -v mariadb | grep wordpress | HEAD -n 1 | awk {'print $1'} )
 
 
+minikube service wordpress
 
+echo ""
+echo "-----------------------------------------------------------------------------------------"
+echo "|||||||| make sure you replace http with https in your browser, when it opens up ||||||||"
+echo "-----------------------------------------------------------------------------------------"
+echo ""
 
