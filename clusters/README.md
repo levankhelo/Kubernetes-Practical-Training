@@ -4,7 +4,6 @@ Steps to easily provision master and slave nodes for kubernetes!
 # Actions
 Here are actions for slave and master nodes!   
 Just copy and paste them in terminal 
-## Master
 
 ## Slave / Node
 Acrtions required for
@@ -69,7 +68,7 @@ TARGET=slaves
 ansible -m shell -a 'echo '$PASS' | sudo swapoff -a' $TARGET;
 ansible -m shell -a "echo "$PASS" | sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
 
-# Installing Container
+# Installing Runtime (Docker)
     # install dependencies
     ansible -m shell -a 'echo '$PASS' | sudo -S apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-release;' $TARGET;
     # add repo
@@ -103,3 +102,15 @@ EOF' $TARGET;
     ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubectl' $TARGET;
 ```
 > Note: Make sure to replace `password` with *password* of *slaves*, to execute commands as *root* user on nodes
+
+
+## Master
+```bash
+sudo apt-get update;
+sudo apt-get install -y apt-transport-https ca-certificates curl;
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg;
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list;
+sudo apt-get update;
+sudo apt-get install -y kubelet kubeadm kubectl;
+sudo apt-mark hold kubelet kubeadm kubectl;
+```
