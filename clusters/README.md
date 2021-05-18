@@ -2,15 +2,15 @@
 Steps to easily provision master and slave nodes for kubernetes!
 
 1. [Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration---master---optional)
-    a. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)
+    1.1. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)
        - [hosts](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#hosts-configuration-file)
-    b. [VirtualBox](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#virtualbox)
+    1.2. [VirtualBox](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#virtualbox)
 2. [Dependencies](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#installing-dependencies)
-    1. [Slave](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)
+    2.1. [Slave](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)
        - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)  - on slave node
        - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible---slave---from-master) - from master node
-    2. [Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#dependencies---master)
-    3. [Initialization of Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#initialize-adminmaster-node---master)
+    2.2. [Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#dependencies---master)
+    2.3. [Initialization of Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#initialize-adminmaster-node---master)
 3. [Connecting nodes](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#connecting-nodes)
     - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual)  - on slave node
     - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible) - from master node
