@@ -1,6 +1,7 @@
 # About
 Steps to easily provision master and slave nodes for kubernetes!
 
+### Table of contents
 1. [Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration---master---optional)  
     1. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)  
           - [hosts](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#hosts-configuration-file)  
