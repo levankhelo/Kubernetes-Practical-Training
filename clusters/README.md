@@ -70,7 +70,7 @@ EOF
 
 sudo systemctl enable docker; sudo systemctl daemon-reload; sudo systemctl restart docker;
 
-# Installing kube
+# Installing kubee
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -;
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list 
 deb https://apt.kubernetes.io/ kubernetes-xenial main 
@@ -132,9 +132,10 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubect
 [Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 ```bash
 sudo apt-get update;
-sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab;
 sudo apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-release;
-
+```
+```bash
 # Installing kube
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -;
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list 
