@@ -89,7 +89,7 @@ TARGET=slaves
 ```
 ```bash
 # General Configuration
-ansible -m shell -a "echo "$PASS" | sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
+ansible -m shell -a "echo "$PASS" | sudo -S swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
 
 # Installing Runtime (Docker)
 # install dependencies
