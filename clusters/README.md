@@ -52,7 +52,7 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 },
 "storage-driver": "overlay2"
 }
-EOF;
+EOF
     sudo systemctl enable docker; sudo systemctl daemon-reload; sudo systemctl restart docker
 
 # Installing kube
@@ -136,8 +136,8 @@ EOF' $TARGET;
     sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
 
     mkdir -p $HOME/.kube
-    # sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    # sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
     kubectl get po -n kube-system
 
@@ -148,8 +148,17 @@ EOF' $TARGET;
 
 # Connecting nodes
 
-
-### Manual - Master
+### Manual
+On Master: 
 ```bash
     kubeadm token create --print-join-command
+```
+Capture this command's output and execute them on slave devices
+
+### Ansible
+On master
+```bash
+PASS=password
+TARGET=slaves
+ansible -m shell -a "echo "$PASS" | sudo -s $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap " $TARGET
 ```
