@@ -1,13 +1,10 @@
 # About
 Steps to easily provision master and slave nodes for kubernetes!
 
-# Actions
-Here are actions for slave and master nodes!   
-Just copy and paste them in terminal 
-
-
 # Ansible Configuration - Master - Optional
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
+## Changes
+### hosts configuration file
 Our updated hosts file looks like this.
 ```conf
 [master]
@@ -16,7 +13,10 @@ master1 ansible_ssh_host=127.0.0.1      ansible_ssh_user=master
 slave1 ansible_ssh_host=192.168.56.102 ansible_ssh_user=slave
 slave2 ansible_ssh_host=192.168.56.104 ansible_ssh_user=slave
 ```
-# Dependencies
+
+### virtualbox
+In virtualbox\'s master configuration, we increased processing power, CPU from 1 to 2.
+# Installing Dependencies
 
 ### Manual - Slave
 Install requirements manually on each device
@@ -68,9 +68,7 @@ EOF
     sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-### Ansible - Slave
-For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
-
+### Ansible - Slave - from master
 
 ```bash
 
@@ -117,7 +115,6 @@ EOF' $TARGET;
 > Note: Make sure to replace `password` with *password* of *slaves*, to execute commands as *root* user on nodes
 
 
-## Master
 
 ### Dependencies - Master
 ```bash
@@ -139,8 +136,8 @@ EOF' $TARGET;
     sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
 
     mkdir -p $HOME/.kube
-    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    # sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    # sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
     kubectl get po -n kube-system
 
@@ -149,7 +146,7 @@ EOF' $TARGET;
 
 ```
 
-## Connecting nodes
+# Connecting nodes
 
 
 ### Manual - Master

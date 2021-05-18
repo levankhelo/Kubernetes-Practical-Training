@@ -2,6 +2,9 @@
 
 sudo apt-get update;
 
+
+
+
 # Installing Container
 sudo apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-release;
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg;
@@ -46,3 +49,4 @@ EOF
     sudo apt-get install -y kubelet kubeadm kubectl
     # disable updates of kube
     sudo apt-mark hold kubelet kubeadm kubectl
+    
