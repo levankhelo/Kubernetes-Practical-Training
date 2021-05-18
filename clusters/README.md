@@ -20,6 +20,7 @@ Steps to easily provision master and slave nodes for kubernetes!
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
 ## Changes
 ### hosts configuration file
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 Our updated hosts file looks like this.
 ```conf
 [master]
@@ -30,10 +31,12 @@ slave2 ansible_ssh_host=192.168.56.104 ansible_ssh_user=slave
 ```
 
 ### virtualbox
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 In virtualboxs master configuration, we increased processing power, CPU from 1 to 2.
 # Installing Dependencies
 
 ### Manual - Slave
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 Install requirements manually on each device
 ```bash
 
@@ -78,7 +81,7 @@ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl && sudo a
 ```
 
 ### Ansible
-
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 ```bash
 
 PASS=password
@@ -125,6 +128,7 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubect
 
 
 ### Dependencies - Master
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 ```bash
 sudo apt-get update;
 sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
@@ -139,7 +143,7 @@ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl && sudo a
 ```
 
 ### Initialize admin/master node - Master
-
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 ```bash
 # ifconfig -a # find ip address that should look like: inet 10.0.0.10 # you can try manually
 IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})"
@@ -157,6 +161,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 # Connecting nodes
 
 ### Manual
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 On Master: 
 ```bash
     kubeadm token create --print-join-command
@@ -164,6 +169,7 @@ On Master:
 Capture this command's output and execute them on slave devices
 
 ### Ansible
+[Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 On master
 ```bash
 PASS=password
