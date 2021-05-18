@@ -14,8 +14,10 @@
     - with ingress 
 6. ✅ [wordpress](https://github.com/levankhelo/Kubernetes-Practical-Training/blob/main/wordpress)
     - HELM install
-7. 🚧 [volumes](https://github.com/levankhelo/Kubernetes-Practical-Training/blob/main/volumes-1) 
+7. ✅  [volumes](https://github.com/levankhelo/Kubernetes-Practical-Training/blob/main/volumes-1) 
     - Simple python data dump in mounted directory
+8. 🚧 [Clusters](https://github.com/levankhelo/Kubernetes-Practical-Training/blob/main/clusters) 
+    - Managing k8s clusters
 
 ## Course on [YouTube](https://www.youtube.com/watch?v=X48VuDVv0do)
 ## Kubectl cheatsheet
