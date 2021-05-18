@@ -16,6 +16,8 @@ Steps to easily provision master and slave nodes for kubernetes!
     - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual)  - on slave node  
     - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-1) - from master node  
 
+
+
 # Ansible Configuration - Master - Optional
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
 ## Changes
@@ -35,9 +37,11 @@ slave2 ansible_ssh_host=192.168.56.104 ansible_ssh_user=slave
 In virtualboxs master configuration, we increased processing power, CPU from 1 to 2.
 # Installing Dependencies
 
-### Manual - Slave
+### Manual - Nodes
 [Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
-Install requirements manually on each device
+
+Provisioning all Nodes, Especially Master
+
 ```bash
 
 sudo apt-get update;
@@ -49,22 +53,24 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] 
 sudo apt-get update && sudo apt-get -y install docker-ce docker-ce-cli containerd.io;
 
 # General Configuration
-sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-
+sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab;
+```
+```bash
 # Installing Docker
 sudo apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-release;
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;
 sudo apt-get update && sudo apt-get -y install docker-ce docker-ce-cli containerd.io;
 
+sudo mkdir /etc/docker
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
-"exec-opts": ["native.cgroupdriver=systemd"],
-"log-driver": "json-file",
-"log-opts": {
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
     "max-size": "100m"
-},
-"storage-driver": "overlay2"
+  },
+  "storage-driver": "overlay2"
 }
 EOF
 
@@ -83,6 +89,8 @@ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl && sudo a
 ### Ansible
 [Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 
+This script is used for slave device provisioning from master device with ansible
+
 ```bash
 PASS=password
 TARGET=slaves
@@ -98,16 +106,19 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-get -y install apt-transport-htt
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg' $TARGET;
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null' $TARGET;
 # install docker
-ansible -m shell -a 'echo '$PASS' | sudo -S apt-get update && sudo apt-get -y install docker-ce docker-ce-cli containerd.io' $TARGET;
+ansible -m shell -a 'echo '$PASS' | sudo -S apt-get update' $TARGET;
+ansible -m shell -a 'echo '$PASS' | sudo -S apt-get -y install docker-ce' $TARGET;
+ansible -m shell -a 'echo '$PASS' | sudo -S docker-ce-cli' $TARGET;
+ansible -m shell -a 'echo '$PASS' | sudo -S containerd.io' $TARGET;
 # update services
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; cat <<EOF | sudo tee /etc/docker/daemon.json
 {
-"exec-opts": ["native.cgroupdriver=systemd"],
-"log-driver": "json-file",
-"log-opts": {
-"max-size": "100m"
-},
-"storage-driver": "overlay2"
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
 }
 EOF' $TARGET;
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo systemctl enable docker; sudo systemctl daemon-reload; sudo systemctl restart docker' $TARGET;
@@ -133,7 +144,25 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubect
 ```bash
 sudo apt-get update;
 sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab;
+
 sudo apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-release;
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;
+sudo apt-get update && sudo apt-get -y install docker-ce docker-ce-cli containerd.io;
+
+sudo mkdir /etc/docker
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
+
 ```
 ```bash
 # Installing kube
@@ -150,7 +179,7 @@ sudo apt-get update; sudo apt-get install -y kubelet kubeadm kubectl; sudo apt-m
 # ifconfig -a # find ip address that should look like: inet 10.0.0.10 # you can try manually
 IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})"
 NODENAME=$(hostname -s);
-sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
+sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --cgroup-driver=systemd --ignore-preflight-errors Swap;
 
 mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; sudo chown $(id -u):$(id -g) $HOME/.kube/config;
 
