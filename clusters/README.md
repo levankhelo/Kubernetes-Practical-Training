@@ -6,7 +6,7 @@ Here are actions for slave and master nodes!
 Just copy and paste them in terminal 
 
 
-# Ansible configuration - Optional
+# Ansible Configuration - Master - Optional
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
 Our updated hosts file looks like this.
 ```conf
@@ -16,9 +16,9 @@ master1 ansible_ssh_host=127.0.0.1      ansible_ssh_user=master
 slave1 ansible_ssh_host=192.168.56.102 ansible_ssh_user=slave
 slave2 ansible_ssh_host=192.168.56.104 ansible_ssh_user=slave
 ```
-## Slave / Node
-Acrtions required for
-### Manual
+# Dependencies
+
+### Manual - Slave
 Install requirements manually on each device
 ```bash
 
@@ -68,7 +68,7 @@ EOF
     sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-### Ansible
+### Ansible - Slave
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
 
 
@@ -118,12 +118,41 @@ EOF' $TARGET;
 
 
 ## Master
+
+### Dependencies - Master
 ```bash
-sudo apt-get update;
-sudo apt-get install -y apt-transport-https ca-certificates curl;
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg;
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list;
-sudo apt-get update;
-sudo apt-get install -y kubelet kubeadm kubectl;
-sudo apt-mark hold kubelet kubeadm kubectl;
+    sudo apt-get update;
+    sudo apt-get install -y apt-transport-https ca-certificates curl;
+    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg;
+    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list;
+    sudo apt-get update;
+    sudo apt-get install -y kubelet kubeadm kubectl;
+    sudo apt-mark hold kubelet kubeadm kubectl;
+```
+
+### Initialize admin/master node - Master
+
+```bash
+    # ifconfig -a # find ip address that should look like: inet 10.0.0.10
+    IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})" # master ip address like 10.0.0.10
+    NODENAME=$(hostname -s);
+    sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
+
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    kubectl get po -n kube-system
+
+    # if we want to schedule apps from master
+    kubectl taint nodes --all node-role.kubernetes.io/master-
+
+```
+
+## Connecting nodes
+
+
+### Manual - Master
+```bash
+    kubeadm token create --print-join-command
 ```
