@@ -1,6 +1,20 @@
 # About
 Steps to easily provision master and slave nodes for kubernetes!
 
+0. [Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration---master---optional)
+   1. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)
+      - [hosts](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#hosts-configuration-file)
+   2. [VirtualBox](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#virtualbox)
+1. [Dependencies](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#installing-dependencies)
+   1. [Slave](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)
+      - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)  - on slave node
+      - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible---slave---from-master) - from master node
+   2. [Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#dependencies---master)
+   3. [Initialization of Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#initialize-adminmaster-node---master)
+2. [Connecting nodes](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#connecting-nodes)
+   - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual)  - on slave node
+   - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible) - from master node
+
 # Ansible Configuration - Master - Optional
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
 ## Changes
@@ -62,7 +76,7 @@ EOF
 sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl && sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-### Ansible - Slave - from master
+### Ansible
 
 ```bash
 
