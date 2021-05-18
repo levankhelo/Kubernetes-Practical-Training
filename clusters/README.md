@@ -5,6 +5,17 @@ Steps to easily provision master and slave nodes for kubernetes!
 Here are actions for slave and master nodes!   
 Just copy and paste them in terminal 
 
+
+# Ansible configuration - Optional
+For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
+Our updated hosts file looks like this.
+```conf
+[master]
+master1 ansible_ssh_host=127.0.0.1      ansible_ssh_user=master
+[slaves]
+slave1 ansible_ssh_host=192.168.56.102 ansible_ssh_user=slave
+slave2 ansible_ssh_host=192.168.56.104 ansible_ssh_user=slave
+```
 ## Slave / Node
 Acrtions required for
 ### Manual
@@ -18,8 +29,6 @@ sudo apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-relea
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg;
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;
 sudo apt-get update && sudo apt-get -y install docker-ce docker-ce-cli containerd.io;
-
-
 
 # General Configuration
 sudo swapoff -a
@@ -61,6 +70,8 @@ EOF
 
 ### Ansible
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
+
+
 ```bash
 
 PASS=password
