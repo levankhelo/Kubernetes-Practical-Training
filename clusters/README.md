@@ -2,9 +2,9 @@
 Steps to easily provision master and slave nodes for kubernetes!
 
 1. [Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration---master---optional)
-    1. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)
+    a. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)
        - [hosts](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#hosts-configuration-file)
-    2. [VirtualBox](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#virtualbox)
+    b. [VirtualBox](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#virtualbox)
 2. [Dependencies](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#installing-dependencies)
     1. [Slave](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)
        - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)  - on slave node
