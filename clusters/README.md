@@ -82,11 +82,12 @@ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl && sudo a
 
 ### Ansible
 [Back to top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
-```bash
 
+```bash
 PASS=password
 TARGET=slaves
-
+```
+```bash
 # General Configuration
 ansible -m shell -a "echo "$PASS" | sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
 
@@ -174,5 +175,7 @@ On master
 ```bash
 PASS=password
 TARGET=slaves
+```
+```bash
 ansible -m shell -a "echo "$PASS" | sudo -s $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap " $TARGET
 ```
