@@ -14,7 +14,7 @@ Steps to easily provision master and slave nodes for kubernetes!
     3. [Initialization of Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#initialize-adminmaster-node---master)  
 3. [Connecting nodes](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#connecting-nodes)  
     - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual)  - on slave node  
-    - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible) - from master node  
+    - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-1) - from master node  
 
 # Ansible Configuration - Master - Optional
 For ansible, we have used same setup that we created in [chapter-6/ansible](https://github.com/levankhelo/chapter-6#step-1-installing-ansible) guide
@@ -89,7 +89,7 @@ TARGET=slaves
 ```
 ```bash
 # General Configuration
-ansible -m shell -a "echo "$PASS" | sudo -S swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
+ansible -m shell -a "echo "$PASS" | sudo -S swapoff -a; sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
 
 # Installing Runtime (Docker)
 # install dependencies
