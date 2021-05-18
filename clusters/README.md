@@ -9,7 +9,7 @@ Steps to easily provision master and slave nodes for kubernetes!
 2. [Dependencies](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#installing-dependencies)  
     1. [Slave](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)  
           - [Manual](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#manual---slave)  - on slave node  
-          - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible---slave---from-master) - from master node  
+          - [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible) - from master node  
     2. [Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#dependencies---master)  
     3. [Initialization of Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#initialize-adminmaster-node---master)  
 3. [Connecting nodes](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#connecting-nodes)  
