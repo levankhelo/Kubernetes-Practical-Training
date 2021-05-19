@@ -214,7 +214,8 @@ PASS=password
 ```bash
 
 sudo echo starting;
-
+```
+```bash
 # General Configuration
 ansible -m shell -a "echo "$PASS" | sudo -S swapoff -a; sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
 
