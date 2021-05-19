@@ -107,9 +107,7 @@ ansible -m shell -a 'echo '$PASS' | sudo -S echo init; curl -fsSL https://downlo
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null' $TARGET;
 # install docker
 ansible -m shell -a 'echo '$PASS' | sudo -S apt-get update' $TARGET;
-ansible -m shell -a 'echo '$PASS' | sudo -S apt-get -y install docker-ce' $TARGET;
-ansible -m shell -a 'echo '$PASS' | sudo -S docker-ce-cli' $TARGET;
-ansible -m shell -a 'echo '$PASS' | sudo -S containerd.io' $TARGET;
+ansible -m shell -a 'echo '$PASS' | sudo -S apt-get -y install docker-ce docker-ce-cli containerd.io' $TARGET;
 # update services
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; cat <<EOF | sudo tee /etc/docker/daemon.json
 {
