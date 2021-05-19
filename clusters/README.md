@@ -253,26 +253,31 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-get install -y kubelet kubeadm k
 # disable updates of kube
 ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubectl' $TARGET;
 
+ansible -m shell -a 'echo '$PASS' | sudo -S ufw --force enable && sudo ufw status verbose' $TARGET
+```
 
+```bash
 # open ports on master
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp;' $MASTER
-
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp; sudo ufw status verbose;' $MASTER
+```
+```bash
 # open ports on slaves
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $SLAVE
-
-ansible -m shell -a 'echo '$PASS' | sudo -S ufw enable && sudo ufw status verbose' $TARGET
-
-IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})"
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp; sudo ufw status verbose;' $SLAVE
+```
+```bash
+ifconfig -a
+IPADDR=192.168.56.106; # here should be ip address of device
 NODENAME=$(hostname -s);
 sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
 
 mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; sudo chown $(id -u):$(id -g) $HOME/.kube/config;
 
 kubectl get po -n kube-system
-
+```
+```bash
 # if we want to schedule apps from master
 kubectl taint nodes --all node-role.kubernetes.io/master-
-
-
-ansible -m shell -a "echo "$PASS" | sudo -s $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap  --v=5" $SLAVE
+```
+```bash
+ansible -m shell -a "echo "$PASS" | sudo -S $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap  --v=5" $SLAVE
 ```
