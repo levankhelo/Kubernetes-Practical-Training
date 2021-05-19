@@ -217,6 +217,9 @@ PASS=password
 ```
 
 ```bash
+
+sudo echo starting;
+
 # General Configuration
 ansible -m shell -a "echo "$PASS" | sudo -S swapoff -a; sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
 
@@ -260,6 +263,8 @@ ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; 
 
 # open ports on slaves
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $SLAVE
+
+ansible -m shell -a 'echo '$PASS' | sudo -S ufw enable && sudo ufw status verbose' $TARGET
 
 IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})"
 NODENAME=$(hostname -s);
