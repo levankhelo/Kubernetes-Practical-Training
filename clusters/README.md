@@ -275,9 +275,17 @@ mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; 
 kubectl get po -n kube-system
 ```
 ```bash
+# install network for pods
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+```
+```bash
+# OPTIONAL: use master as node
 # if we want to schedule apps from master
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 ```bash
 ansible -m shell -a "echo "$PASS" | sudo -S $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap  --v=5" $SLAVE
+```
+```bash
+kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 ```
