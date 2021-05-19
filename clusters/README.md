@@ -206,7 +206,7 @@ slave2 ansible_ssh_host=192.168.56.107  ansible_ssh_user=slave
 ```
 ```bash
 TARGET=all
-MASTER=master
+MASTER=masters
 SLAVE=slaves
 PASS=password
 ```
