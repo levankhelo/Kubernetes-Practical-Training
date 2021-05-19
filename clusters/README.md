@@ -198,19 +198,14 @@ All commands together for master!
 Make sure you have configured `/etc/ansible/hosts` file with following format:
 ```conf
 [masters]
-master1 ansible_ssh_host=127.0.0.1     ansible_ssh_user=master
+master1 ansible_ssh_host=192.168.56.106 ansible_ssh_user=master
 
 [slaves]
-slave1 ansible_ssh_host=192.168.56.102 ansible_ssh_user=slave
-slave2 ansible_ssh_host=192.168.56.104 ansible_ssh_user=slave
-
-[target]
-masters
-slaves
-
+slave1 ansible_ssh_host=192.168.56.102  ansible_ssh_user=slave
+slave2 ansible_ssh_host=192.168.56.105  ansible_ssh_user=slave
 ```
 ```bash
-TARGET=target
+TARGET=all
 MASTER=master
 SLAVE=slaves
 PASS=password
