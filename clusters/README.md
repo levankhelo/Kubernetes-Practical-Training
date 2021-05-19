@@ -202,7 +202,7 @@ master1 ansible_ssh_host=192.168.56.106 ansible_ssh_user=master
 
 [slaves]
 slave1 ansible_ssh_host=192.168.56.102  ansible_ssh_user=slave
-slave2 ansible_ssh_host=192.168.56.105  ansible_ssh_user=slave
+slave2 ansible_ssh_host=192.168.56.107  ansible_ssh_user=slave
 ```
 ```bash
 TARGET=all
