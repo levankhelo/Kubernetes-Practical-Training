@@ -256,10 +256,10 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubect
 
 
 # open ports on master
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw enable; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp;' $MASTER
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp;' $MASTER
 
 # open ports on slaves
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw enable; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $SLAVE
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $SLAVE
 
 IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})"
 NODENAME=$(hostname -s);
@@ -273,5 +273,5 @@ kubectl get po -n kube-system
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
 
-ansible -m shell -a "echo "$PASS" | sudo -s $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap " $SLAVE
+ansible -m shell -a "echo "$PASS" | sudo -s $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap  --v=5" $SLAVE
 ```
