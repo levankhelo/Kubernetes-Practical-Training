@@ -1,6 +1,9 @@
 # About
 Steps to easily provision master and slave nodes for kubernetes!
 
+## [TL; DR](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#summary)
+
+
 ### Table of contents
 1. [Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration---master---optional)  
     1. [Ansible](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#changes)  
@@ -192,7 +195,7 @@ ansible -m shell -a "echo "$PASS" | sudo -s $(kubeadm token create --print-join-
 
 
 
-# Summary
+# TL; DR;
 All commands together for master!
 
 Make sure you have configured `/etc/ansible/hosts` file with following format:
