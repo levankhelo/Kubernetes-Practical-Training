@@ -123,7 +123,7 @@ ansible -m shell -a 'echo '$PASS' | sudo -S echo init; cat <<EOF | sudo tee /etc
 EOF' $TARGET;
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo systemctl enable docker; sudo systemctl daemon-reload; sudo systemctl restart docker' $TARGET;
 
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo systemctl start ufw; sudo ufw enable; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $TARGET
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw enable; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $TARGET
 
 # Installing kube
 # upating repo
@@ -260,10 +260,10 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubect
 
 
 # open ports on master
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo systemctl start ufw; sudo ufw enable; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp;' $MASTER
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw enable; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp;' $MASTER
 
 # open ports on slaves
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo systemctl start ufw; sudo ufw enable; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $SLAVE
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw enable; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp;' $SLAVE
 
 IPADDR="$(ifconfig -a | grep -vE -- "inet6|172.|192.|127." | grep -E -- "inet" | awk {'print $2'})"
 NODENAME=$(hostname -s);
