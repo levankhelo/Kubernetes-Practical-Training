@@ -1,7 +1,7 @@
 # About
 Steps to easily provision master and slave nodes for kubernetes!
 
-## [TL; DR](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#summary)
+## [TL; DR](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#tl-dr-1)
 
 
 ### Table of contents
