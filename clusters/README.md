@@ -280,6 +280,10 @@ Configur networking between *Nodes*
 ```bash
 # install network for pods
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+# update addresses for calico
+kubectl set env daemonset/calico-node -n kube-system IP_AUTODETECTION_METHOD=interface=enp\*  
+kubectl set env daemonset/calico-node -n kube-system FELIX_IGNORELOOSERPF=true  
 ```
 **Optional**: Make master as one of nodes and allow pod deployment on master
 ```bash
