@@ -207,17 +207,20 @@ master1 ansible_ssh_host=192.168.56.106 ansible_ssh_user=master
 slave1 ansible_ssh_host=192.168.56.102  ansible_ssh_user=slave
 slave2 ansible_ssh_host=192.168.56.107  ansible_ssh_user=slave
 ```
+Initialize variables
 ```bash
 TARGET=all
 MASTER=masters
 SLAVE=slaves
+NODENAME=$(hostname -s);
+IPADDR=192.168.56.106; # find it using ifconfig -a
 PASS=password
 ```
-
+After this, we won\'t be asked for sudo password, for a while
 ```bash
-
 sudo echo starting;
 ```
+Provision Target devices
 ```bash
 # General Configuration
 ansible -m shell -a "echo "$PASS" | sudo -S swapoff -a; sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab" $TARGET;
@@ -257,22 +260,15 @@ ansible -m shell -a 'echo '$PASS' | sudo -S apt-get install -y kubelet kubeadm k
 ansible -m shell -a 'echo '$PASS' | sudo -S apt-mark hold kubelet kubeadm kubectl' $TARGET;
 
 ansible -m shell -a 'echo '$PASS' | sudo -S ufw --force enable && sudo ufw status verbose' $TARGET
-```
 
-```bash
+
 # open ports on master
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp; sudo ufw status verbose;' $MASTER
-```
-```bash
+
 # open ports on slaves
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp; sudo ufw status verbose;' $SLAVE
 ```
-```bash
-# store ip address
-ifconfig -a
-IPADDR=192.168.56.106; # here should be ip address of device
-NODENAME=$(hostname -s);
-```
+Setup current device as ***master***
 ```bash
 sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
 
@@ -280,18 +276,22 @@ mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; 
 
 kubectl get po -n kube-system
 ```
+Configur networking between *Nodes*
 ```bash
 # install network for pods
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 ```
+Make master as one of nodes and allow pod deployment on master
 ```bash
 # OPTIONAL: use master as node
 # if we want to schedule apps from master
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
+Connect ***nodes*** to ***master***
 ```bash
 ansible -m shell -a "echo "$PASS" | sudo -S $(kubeadm token create --print-join-command) --ignore-preflight-errors=swap  --v=5" $SLAVE
 ```
+Install `metrics service`
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 ```
