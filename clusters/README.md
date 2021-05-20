@@ -268,9 +268,12 @@ ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; 
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp; sudo ufw status verbose;' $SLAVE
 ```
 ```bash
+# store ip address
 ifconfig -a
 IPADDR=192.168.56.106; # here should be ip address of device
 NODENAME=$(hostname -s);
+```
+```bash
 sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
 
 mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; sudo chown $(id -u):$(id -g) $HOME/.kube/config;
