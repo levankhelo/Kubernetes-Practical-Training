@@ -281,7 +281,7 @@ Configur networking between *Nodes*
 # install network for pods
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 ```
-Make master as one of nodes and allow pod deployment on master
+**Optional**: Make master as one of nodes and allow pod deployment on master
 ```bash
 # OPTIONAL: use master as node
 # if we want to schedule apps from master
