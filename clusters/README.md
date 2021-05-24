@@ -263,7 +263,10 @@ ansible -m shell -a 'echo '$PASS' | sudo -S ufw --force enable && sudo ufw statu
 
 
 # open ports on master
-ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 10250:10252/tcp; sudo ufw status verbose;' $MASTER
+ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 179/tcp; sudo ufw allow 443/tcp; sudo ufw allow 2379:2380/tcp; sudo ufw allow 4789/tcp; sudo ufw allow 5473/tcp;sudo ufw allow 6443/tcp; sudo ufw allow 10250:10252/tcp; sudo ufw status verbose;' $MASTER
+
+# sudo ufw allow 179/tcp; sudo ufw allow 4789/tcp; sudo ufw allow 5473/tcp; sudo ufw allow 443/tcp; sudo ufw allow 6443/tcp; sudo ufw allow 2379/tcp; sudo ufw allow 4149/tcp; sudo ufw allow 10250/tcp; sudo ufw allow 10255/tcp; sudo ufw allow 10256/tcp; sudo ufw allow 9099/tcp
+
 
 # open ports on slaves
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp; sudo ufw status verbose;' $SLAVE
