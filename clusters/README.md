@@ -268,6 +268,14 @@ ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 6443/tcp; 
 # open ports on slaves
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp; sudo ufw status verbose;' $SLAVE
 ```
+```bash
+# Install helm
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -;
+sudo apt-get install apt-transport-https --yes;
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list;
+sudo apt-get update;
+sudo apt-get install helm;
+```
 Setup current device as ***master***
 ```bash
 sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
