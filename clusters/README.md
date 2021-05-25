@@ -1,8 +1,8 @@
 # About
 Steps to easily provision master and slave nodes for kubernetes!
 
-## [TL; DR](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#tl-dr-1)
-
+## -> [TL; DR](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#tl-dr-1) <-
+## -> [Quick initialization]() <-
 
 ### Table of contents
 1. [Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration---master---optional)  
@@ -270,6 +270,7 @@ ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 179/tcp; s
 # open ports on slaves
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 10250/tcp; sudo ufw allow 30000:32767/tcp; sudo ufw status verbose;' $SLAVE
 
+# Calico ports for all
 ansible -m shell -a 'echo '$PASS' | sudo -S echo init; sudo ufw allow 179/tcp; sudo ufw allow 4789/tcp; sudo ufw allow 5473/tcp; sudo ufw allow 443/tcp; sudo ufw allow 6443/tcp; sudo ufw allow 2379/tcp; sudo ufw allow 4149/tcp; sudo ufw allow 10250/tcp; sudo ufw allow 10255/tcp; sudo ufw allow 10256/tcp; sudo ufw allow 9099/tcp; sudo ufw status verbose;' $TARGET
 
 ansible -m shell -a 'echo '$PASS' | sudo -S ufw --force enable && sudo ufw status verbose' $TARGET
@@ -313,3 +314,5 @@ Install `metrics service`
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 ```
+
+## Quick installation in one command
