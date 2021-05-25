@@ -136,7 +136,7 @@ echo $PASS | sudo -S kubeadm init --apiserver-advertise-address=$IPADDR  --apise
 
 mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; sudo chown $(id -u):$(id -g) $HOME/.kube/config;
 
-kubectl get po -n kube-system
+sleep 10 && kubectl get po -n kube-system
 ```
 # Calico networking setup
 Configur networking between *Nodes*
