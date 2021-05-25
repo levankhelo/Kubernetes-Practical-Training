@@ -124,7 +124,7 @@ ansible -m shell -a 'echo '$PASS' | sudo -S ufw --force enable && sudo ufw statu
 ```bash
 # Install helm
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -;
-sudo apt-get install apt-transport-https --yes;
+echo $PASS | sudo -S apt-get install apt-transport-https --yes;
 echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list;
 sudo apt-get update;
 sudo apt-get install helm;
@@ -132,7 +132,7 @@ sudo apt-get install helm;
 # Admin/Master initialization
 Setup current device as ***master***
 ```bash
-sudo kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
+echo $PASS | sudo -S kubeadm init --apiserver-advertise-address=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=192.168.0.0/16 --node-name $NODENAME --ignore-preflight-errors Swap;
 
 mkdir -p $HOME/.kube; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config; sudo chown $(id -u):$(id -g) $HOME/.kube/config;
 
@@ -164,6 +164,66 @@ ansible -m shell -a "echo "$PASS" | sudo -S $(kubeadm token create --print-join-
 Install `metrics service`
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
+```
+
+### Deploy simple nginx
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector: 
+    app: nginx
+  type: NodePort  
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 32000
+EOF
+```
+
+## Create Persist volume storage on one of nodes
+```bash
+ansible -m shell -a 'echo '$PASS' | sudo -S mkdir /mnt/data && echo Storage | sudo tee /mnt/data/index.html' slave2
+ansible -m shell -a 'cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+EOF
+' master
 ```
 
 # Artifacts
