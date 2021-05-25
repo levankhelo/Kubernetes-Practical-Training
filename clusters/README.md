@@ -8,7 +8,7 @@ Steps to easily provision master and slave nodes for kubernetes!
   - [Ansible Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration)
   - [Linux Environment prerequisited](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#environment-prerequisited) 
   - [Provision](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#provisioning)
-  - [HELM](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#helm-installation)
+  - [Install HELM](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#helm-installation)
   - [Administrator initialization](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#adminmaster-initialization)
   - [Calico for networking](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#calico-networking-setup)
   - Optional: [Tainting Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#admin-node-tainting)
@@ -17,6 +17,7 @@ Steps to easily provision master and slave nodes for kubernetes!
 - [Results](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#artifacts)
 
 ## VirtualBox Configuration
+[Go to Top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 In virtualbox, We have created 3 Ubuntu 20.04 Instances and connected them using Virtual NAT Network  
 
 > Nat network is configurable in `VirtualBox > Preferences > Network > Add New NAT Network`  
