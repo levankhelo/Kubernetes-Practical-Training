@@ -53,7 +53,7 @@ slave2  ansible_ssh_host=172.16.0.4  ansible_ssh_user=slave2
 > Please replace ip addresses based on your case of network configuration.
 > Try running `ifconfig -a` on each device or `ifconfig | grep inet | grep -vE -- "inet6|192.168|127.0.0.1|172.17" | awk {'print $2'}` to get filtered output   
   
-## Environment Prerequisited
+## Environment Prerequisites
 Initialize variables
 ```bash
 TARGET=all
