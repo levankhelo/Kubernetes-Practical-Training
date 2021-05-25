@@ -17,7 +17,7 @@ Steps to easily provision master and slave nodes for kubernetes!
 - [Results](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#artifacts)
 
 ## VirtualBox Configuration
-[Go to Top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
+[Top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 In virtualbox, We have created 3 Ubuntu 20.04 Instances and connected them using Virtual NAT Network  
 
 > Nat network is configurable in `VirtualBox > Preferences > Network > Add New NAT Network`  
@@ -27,6 +27,7 @@ All Instances are on same network
 
 
 ## Ubuntu configuration  
+[Top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)    
 Make sure you have installed `ansible` on master and `ssh server`, `net-tools` on all devices
 ```bash
 # all devices
@@ -39,6 +40,7 @@ sudo apt-get -y install ansible
 
 
 ## Ansible Configuration
+[Top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 Configure `/etc/ansible/hosts` file with following format:
 ```conf
 [masters]
@@ -165,6 +167,7 @@ kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/ma
 ```
 
 # Artifacts
+[Top](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#table-of-contents)  
 ## Command
 ```bash
 echo && echo Nodes && echo ------------ && kubectl get nodes -A -o wide && echo && echo && echo Pods: kube-system && echo ------------ && kubectl get pods -n kube-system -A -o wide && echo && echo && echo Top && echo ------------ && kubectl top nodes
