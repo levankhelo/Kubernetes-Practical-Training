@@ -2,12 +2,19 @@
 Steps to easily provision master and slave nodes for kubernetes!
 
 ### Table of contents
-- Virtualbox Configuration
-- Linux Configuration
-- Ansible Configuration
-- Linux Environment prerequisited 
-- 
-
+- Process
+  - [Virtualbox Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ubuntu-configuration)
+  - [Linux Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ubuntu-configuration)
+  - [Ansible Configuration](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#ansible-configuration)
+  - [Linux Environment prerequisited](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#environment-prerequisited) 
+  - [Provision](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#provisioning)
+  - [HELM](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#helm-installation)
+  - [Administrator initialization](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#adminmaster-initialization)
+  - [Calico for networking](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#calico-networking-setup)
+  - Optional: [Tainting Master](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#admin-node-tainting)
+  - [Connectint to Nodes](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#estabilish-connection-to-nodes)
+  - [Setup Metrics service](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#metric-service)
+- [Results](https://github.com/levankhelo/Kubernetes-Practical-Training/tree/main/clusters#artifacts)
 
 ## VirtualBox Configuration
 In virtualbox, We have created 3 Ubuntu 20.04 Instances and connected them using Virtual NAT Network  
