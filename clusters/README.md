@@ -166,13 +166,13 @@ Install `metrics service`
 kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 ```
 
-### Simple script to monitor pods and nodes
+## Simple script to monitor pods and nodes
 ```bash
 watch -n 0.5 "echo && echo Nodes && echo ------------ && kubectl get nodes -A -o wide && echo && echo && echo Pods: kube-system && echo ------------ && kubectl get pods -n kube-system -A -o wide && echo && echo && echo Top && echo ------------ && kubectl top nodes" 
 ```
 
 
-### Deploy simple nginx
+## Deploy simple nginx
 ```bash
 cat <<EOF | kubectl apply -f -
 apiVersion: apps/v1
